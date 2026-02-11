@@ -1,0 +1,6 @@
+- name: create keypair if not exists
+  amazon.aws.ec2_key:
+    name: roboshop-key
+    region: us-east-1
+    state: present
+  register: keypair_output
