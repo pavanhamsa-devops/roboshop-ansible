@@ -19,8 +19,8 @@
   - name: disbale protected mode
     ansible.builtin.lineinfile:
       path: /etc/redis/redis.conf
-      regexp: 'protected_mode'
-      line: 'protected_mode no'
+      regexp: 'protected-mode'
+      line: 'protected-mode no'
 
   - name: start and enable redis
     ansible.builtin.service:
