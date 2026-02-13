@@ -9,3 +9,40 @@
     ansible.builtin.dnf:
       name: nginx
       state: present
+
+  - name: remove the entire directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: absent
+    
+  - name: create html directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
+
+  - name: donwload frontend
+    ansible.builtin.get_url:
+      url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+      dest: /tmp/frontend.zip
+
+  - name: unarchive frontend
+    ansible.builtin.unarchive:
+      src: /tmp/frontend.zip
+      dest: /usr/share/nginx/html
+      remote_src: yes
+
+  - name: remove default nginx
+    ansible.builtin.file:
+      state: absent
+      path: /etc/nginx/nginx.conf
+
+  - name: copy nginx.conf
+    ansible.builtin.template:
+      src: nginx.conf
+      path: /etc/nginx/nginx.conf
+
+  - name: restart nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
+      enabled: yes
