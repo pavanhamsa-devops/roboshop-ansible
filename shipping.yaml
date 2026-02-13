@@ -56,7 +56,7 @@
 
   - name: create systemctl service
     ansible.builtin.service:
-      src: shipping.servide
+      src: shipping.service
       dest: /etc/systemd/system/shipping.service
 
   - name: daemon reload
